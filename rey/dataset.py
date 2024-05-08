@@ -1,16 +1,19 @@
 import os
-import cv2
 import torch
 import pandas as pd
-import numpy as np
 
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from torch.utils.data import Dataset
 from typing import Union
 from PIL import Image
 
 class MultiLabelDataset(Dataset):
     
-	def __init__(self, csv_file: Union[str, pd.DataFrame], root_dir: str, transform=None) -> None:
+	def __init__(self, 
+			  csv_file: Union[str, pd.DataFrame], 
+			  root_dir: str,
+			  vectorizer: Union[CountVectorizer, TfidfVectorizer],
+			  transform=None) -> None:
 		"""
 		Arguments:
 			csv_file (string): path to the csv file with annotations or pandas' dataframe.
@@ -22,6 +25,7 @@ class MultiLabelDataset(Dataset):
 			self.df = pd.read_csv(csv_file)
 		self.root_dir = root_dir
 		self.transform = transform
+		self.vectorizer = vectorizer
 
 	def __len__(self) -> int:
 		return len(self.df)
@@ -34,8 +38,12 @@ class MultiLabelDataset(Dataset):
 		# load the image
 		img_name = os.path.join(self.root_dir, self.df.iloc[idx, 0])
 		image = Image.open(img_name).convert("RGB")
-		# image = np.asarray(image)
-		# image = cv2.imread(img_name, flags=1)
+
+		# load the caption
+		caption = self.df.iloc[idx, 1]
+		if (self.vectorizer):
+			caption = self.vectorizer.transform([caption])
+			caption = torch.from_numpy(caption.todense()).int()
 
 		# get the labels
 		labels = torch.Tensor(self.df.iloc[idx, 2:])
@@ -44,4 +52,4 @@ class MultiLabelDataset(Dataset):
 		if (self.transform):
 			image = self.transform(image)
 
-		return image, labels
+		return img_name, image, caption, labels
