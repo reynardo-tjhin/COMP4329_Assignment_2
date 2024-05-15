@@ -13,13 +13,4 @@
 | MobileNet_V3_Large_Weights.IMAGENET1K_V2 | 75.274 | 5.5M | 21.1 MB |
 | RegNet_X_1_6GF_Weights.IMAGENET1K_V2 | 79.668 | 9.2M | 35.3 MB |
 
-## File Structure
-
-- cnn.ipynb: Jupyter Notebook containing the CNN model for image classification
-- combined.ipynb: Jupyter Notebook containing the combined model of CNN and LSTM in an attempt for multi-class label classification
-- dataset.py: Python file to create custom Dataset class for PyTorch
-- main.py: [currently not updated yet]
-- Model Summary.ipynb: Jupyter Notebook to view the model architecture
-- nlp.ipynb: Jupyter Notebook containing the LSTM model for text classification\
-- tools.sh: Python file to read file, get data, etc.
-- run.sh: to run main.py
+Current problem: the data is too imbalanced that the model gives more weightings to the imbalanced class.
