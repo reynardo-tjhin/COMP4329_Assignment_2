@@ -72,7 +72,7 @@ class MultiLabelDataset(Dataset):
 		# get the labels
 		labels = None
 		if (not self.is_test):
-			labels = torch.Tensor(self.df.iloc[idx, 2:])
+			labels = torch.Tensor(self.df.iloc[idx, 2:].to_list())
 			return img_name, image, caption, labels
 
 		return img_name, image, caption

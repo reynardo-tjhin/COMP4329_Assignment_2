@@ -88,8 +88,8 @@ class PopularModels:
         if (choice == "mnasnet1_3"):
             self.model = models.mnasnet1_3()
             if (pretrained):
-                self.model = models.mnasnet1_3(weights=MNASNet1_3_Weights)
-                self.weights = MNASNet1_3_Weights
+                self.model = models.mnasnet1_3(weights=MNASNet1_3_Weights.DEFAULT)
+                self.weights = MNASNet1_3_Weights.DEFAULT
             if (freeze):
                 for name, params in self.model.named_parameters():
                     if ("classifier" not in name):

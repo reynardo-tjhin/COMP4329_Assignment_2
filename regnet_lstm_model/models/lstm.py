@@ -5,7 +5,14 @@ from typing import Tuple
 
 class LSTM(nn.Module):
     
-	def __init__(self, no_layers: int, vocab_size: int, embedding_dim: int, hidden_dim: int, output_dim: int) -> None:
+	def __init__(self, 
+			  no_layers: int, 
+			  vocab_size: int, 
+			  embedding_dim: int, 
+			  hidden_dim: int, 
+			  output_dim: int,
+			  dropout: float = 0.5,
+			) -> None:
 		super(LSTM, self).__init__()
 
 		self.output_dim = output_dim
@@ -24,6 +31,9 @@ class LSTM(nn.Module):
 			num_layers=no_layers,
 			batch_first=True,
 		)
+
+		# dropout layer
+		self.dropout = nn.Dropout(p=dropout, inplace=True)
 
 		# fully connected layer
 		self.fc = nn.Linear(in_features=hidden_dim, out_features=output_dim)
