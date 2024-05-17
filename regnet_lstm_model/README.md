@@ -12,5 +12,3 @@
 | MNASNet1_3_Weights.IMAGENET1K_V1 | 76.506 | 6.3M | 24.2 MB |
 | MobileNet_V3_Large_Weights.IMAGENET1K_V2 | 75.274 | 5.5M | 21.1 MB |
 | RegNet_X_1_6GF_Weights.IMAGENET1K_V2 | 79.668 | 9.2M | 35.3 MB |
-
-Current problem: the data is too imbalanced that the model gives more weightings to the imbalanced class.
